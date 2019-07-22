@@ -24,8 +24,8 @@ SpringCloud Finchley.BUILD-SNAPSHOT,Shiro,Mysql,Redisson,jdk1.8,layiui
 
 
 #一些截图
-![](https://github.com/MeloFocus/FocusCloudWork/img/1.png) 
-![](https://github.com/MeloFocus/FocusCloudWork/img/2.png)  
-![](https://github.com/MeloFocus/FocusCloudWork/img/3.png)  
+![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/1.png) 
+![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/2.png)  
+![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/3.png)  
 
  
