@@ -1,0 +1,18 @@
+server:
+  port: 18901
+
+spring:
+  application:
+    name: focus-base
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/focus?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: pangtiemin
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:18800/eureka/
+  instance:
+    lease-renewal-interval-in-seconds:   #Eureka client向Eureka server 发送心跳的时间间隔 10，默认是30 ，生产环境提高频率，避免因网络原因不能保持心跳，服务被剔除

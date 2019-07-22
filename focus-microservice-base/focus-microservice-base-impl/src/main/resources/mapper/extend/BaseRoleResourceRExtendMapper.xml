@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.extend.BaseRoleResourceRExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseRoleResourceR" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="RESOURCE_ID" property="resourceId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <insert id="batchInsert">
+    insert into base_role_resource_r (ID, ROLE_ID, RESOURCE_ID)
+    values
+    <foreach collection="list" separator="," open="(" close=")" item="item">
+      #{item.id,jdbcType=VARCHAR}, #{item.roleId,jdbcType=VARCHAR}, #{item.resourceId,jdbcType=VARCHAR}
+    </foreach>
+  </insert>
+    <delete id="deleteByRoleIds">
+      delete from base_role_resource_r where ROLE_ID in
+      <foreach collection="list" item="item" separator="," open="(" close=")">
+        #{item,jdbcType=VARCHAR}
+      </foreach>
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.basic.BaseAuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseAuthority" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="METHOD" property="method" jdbcType="VARCHAR" />
+    <result column="CONTROLLER" property="controller" jdbcType="VARCHAR" />
+    <result column="DES" property="des" jdbcType="VARCHAR" />
+    <result column="CREAT_USER" property="creatUser" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_authority
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.focus.base.domain.basic.BaseAuthority" >
+    insert into base_authority (ID, NAME, CODE, 
+      URL, METHOD, CONTROLLER, 
+      DES, CREAT_USER, CREAT_DATE, 
+      UPDATE_USER, UPDATE_DATE)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, #{controller,jdbcType=VARCHAR}, 
+      #{des,jdbcType=VARCHAR}, #{creatUser,jdbcType=VARCHAR}, #{creatDate,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.focus.base.domain.basic.BaseAuthority" >
+    update base_authority
+    set NAME = #{name,jdbcType=VARCHAR},
+      CODE = #{code,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      METHOD = #{method,jdbcType=VARCHAR},
+      CONTROLLER = #{controller,jdbcType=VARCHAR},
+      DES = #{des,jdbcType=VARCHAR},
+      CREAT_USER = #{creatUser,jdbcType=VARCHAR},
+      CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, NAME, CODE, URL, METHOD, CONTROLLER, DES, CREAT_USER, CREAT_DATE, UPDATE_USER, 
+    UPDATE_DATE
+    from base_authority
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, NAME, CODE, URL, METHOD, CONTROLLER, DES, CREAT_USER, CREAT_DATE, UPDATE_USER, 
+    UPDATE_DATE
+    from base_authority
+  </select>
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.extend.BaseUserRoleRExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseRoleResourceR" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="RESOURCE_ID" property="resourceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="batchInsert">
+    insert into base_user_role_r (ID, USER_ID, ROLE_ID,
+    YW_ID)
+    values
+    <foreach collection="list" item="item" separator="," >
+      (#{item.id,jdbcType=VARCHAR}, #{item.userId,jdbcType=VARCHAR}, #{item.roleId,jdbcType=VARCHAR},
+      #{item.ywId,jdbcType=VARCHAR})
+    </foreach>
+
+
+  </insert>
+  <delete id="deleteByUserIds">
+    delete from base_user_role_r where USER_ID in
+    <foreach collection="list" item="item" separator="," open="(" close=")">
+      #{item,jdbcType=VARCHAR}
+    </foreach>
+
+  </delete>
+  <select id="roleOfUser" resultType="com.focus.base.domain.basic.BaseRole">
+    SELECT
+    b.*
+    FROM
+    base_user_role_r a
+    INNER JOIN base_role b ON a.ROLE_ID = b.ID
+    WHERE
+    a.USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+  <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+
+<div class="layui-btn-container" style="margin-left: 50px;">
+    <button type="button" class="layui-btn layui-btn-sm" lay-demo="getChecked">授权</button>
+</div>
+
+<div id="test1" class="demo-tree-more" style="margin-left: 50px;"></div>
+
+<script>
+layui.use(['form','layer','tree', 'util'], function(){
+  var form = layui.form;
+  var layer = layui.layer;
+   var tree = layui.tree;
+  var util = layui.util;
+
+   var router = layui.router();
+   var userIds = router.search.userIds;
+
+   var userList= new Array(); //定义一数组
+   userList[0]=userIds;
+
+    var rparam = {"userIds[0]":userIds};
+
+
+   var d = [];
+   $.get("http://localhost:18900/base/baseUserRole/roleList?userId="+userIds,function(result){
+       if(result.status==500){
+           layer.msg(result.data, {icon: 5},{time: 1500})
+       }
+       else if(result.status==502){
+            window.location.href = "http://localhost:18900/base/loginpage";
+      }
+       else if(result.status==200){
+            $.each(result.data,function (i,j){
+                d[i]={};
+                d[i]['title'] = j['name'];
+                d[i]['id'] = j['id'];
+                d[i]['checked'] = j['checked'];
+
+                 tree.render({
+                      elem: '#test1'  //绑定元素
+                      ,data: d
+                      ,showCheckbox:true
+                      ,id: 'demoId1'
+                 });
+            });
+       }
+    });
+  
+  //按钮事件
+  util.event('lay-demo', {
+    getChecked: function(othis){
+      var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+      $.each(checkedData,function (i,j){
+        rparam['roleIds['+i+']']=j['id'];
+      });
+
+
+      $.post("http://localhost:18900/base/baseUserRole/authoiize",rparam,function(result){
+        if(result.status==500){
+           layer.msg(result.data, {icon: 5},{time: 1500})
+       }
+       else if(result.status==200){
+          layer.msg('授权成功', {icon: 1});
+
+            setTimeout(function(){ x.value = "2 秒" }, 1000);
+            //当你在iframe页面关闭自身时
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            parent.layer.close(index); //再执行关闭
+       }
+      });
+
+      //layer.alert(JSON.stringify(checkedData), {shade:0});
+      //console.log(checkedData);
+    }
+    ,setChecked: function(){
+      tree.setChecked('demoId1', [12, 16]); //勾选指定节点
+    }
+    ,reload: function(){
+      //重载实例
+      tree.reload('demoId1', {
+
+      });
+    }
+  });
+
+
+});
+</script>
+</body>
+</html>

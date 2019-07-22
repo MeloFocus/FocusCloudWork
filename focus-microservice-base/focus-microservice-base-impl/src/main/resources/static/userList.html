@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!--让a标签打开新页面 -->
+    <base target="_blank" />
+     <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" ></meta>
+  <title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+    <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+    <!--<script src="http://localhost:18900/base/layui/focus.js"></script>-->
+</head>
+<body>
+
+<table class="layui-hide" id="test" lay-filter="test"></table>
+
+<!--表格上方操作按钮 -->
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="save">新增</button>
+        <!--<button class="layui-btn layui-btn-sm layui-btn-warm" lay-event="authorize">授权</button>-->
+        <button class="layui-btn layui-btn-sm layui-btn-danger" lay-event="del">删除</button>
+    </div>
+</script>
+
+<!-- 表格行中操作按钮-->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-xs" lay-event="authorize">授权</a>
+    <!--<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>-->
+</script>
+
+
+<script>
+layui.use('table', function(){
+  var table = layui.table;
+
+  table.render({
+    elem: '#test'
+    ,url:'/base/baseUser/user/list'
+    ,toolbar: '#toolbarDemo'
+    ,title: '用户数据表'
+    ,totalRow: true
+    ,cols: [[
+        {type: 'checkbox', fixed: 'left'}
+      ,{field:'id', hide:true,title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRowText: '合计行'}
+      ,{field:'loginName', title:'用户名', width:120}
+      ,{field:'nickName', title:'昵称', width:120}
+      ,{field:'realName', title:'姓名', width:120}
+      ,{field:'email', title:'邮箱', width:150}
+      ,{field:'sex', title:'性别', width:60,}
+      ,{field:'signature', title:'签名',width:250}
+      ,{field:'creatDate', title:'加入时间', width:150}
+      ,{fixed: 'right', title:'操作', toolbar: '#barDemo', width:150}
+    ]]
+    ,page: true
+    ,response: {
+      statusCode: 200 //重新规定成功的状态码为 200，table 组件默认为 0
+    }
+    ,parseData: function(res){ //将原始数据解析成 table 组件所规定的数据
+      return {
+        "code": res.status, //解析接口状态
+        "msg": res.message, //解析提示文本
+        "count": res.data.total, //解析数据长度
+        "data": res.data.list //解析数据列表
+      };
+    }
+    ,done: function(res, curr, count){
+    //如果是异步请求数据方式，res即为你接口返回的信息。
+    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+        $.each(res.data,function (i,j){
+            if(j['sex']==true){
+                j['sex']='男';
+            }else{
+                j['sex']='女';
+            }
+        });
+   }
+  });
+
+
+  //头工具栏事件
+  table.on('toolbar(test)', function(obj){
+    var checkStatus = table.checkStatus(obj.config.id);
+    switch(obj.event){
+      case 'save':
+        <!--var data = checkStatus.data;-->
+        <!--layer.alert(JSON.stringify(data));-->
+        saveUser();
+      break;
+      case 'authorize':
+        var data = checkStatus.data;
+        layer.msg('选中了：'+ data.length + ' 个');
+        authorizeUser(data);
+      break;
+      case 'del':
+          layer.confirm('真的删除行么', function(index){
+            var data = checkStatus.data;
+            delUser(data);
+            layer.close(index);
+          });
+      break;
+    };
+  });
+
+  function authorizeUser(data){
+    layer.open({
+        type: 2,
+        skin: 'layui-layer-demo', //样式类名
+        title: '用户授权',
+        closeBtn: 1, //不显示关闭按钮
+        anim: 2,
+        area: ['400px', '500px'],
+        shadeClose: true, //开启遮罩关闭
+        content: 'http://localhost:18900/base/userAuthorize.html/#/userIds='+data['id']
+    });
+  }
+
+  function delUser(data){
+     var d = "";
+     $.each(data,function (i,j){
+        d = d + j["id"] + ",";
+     });
+     $.ajax({
+         url: '/base/baseUser/user/'+d,
+         type: 'POST',
+         data:{"_method":"DELETE"},
+         success: function(result) {
+              window.location.reload();
+         }
+     });
+  }
+
+  function saveUser(){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-demo', //样式类名
+            title: '注册Focus Cloud 用户',
+            closeBtn: 1, //不显示关闭按钮
+            anim: 2,
+            area: ['400px', '500px'],
+            shadeClose: true, //开启遮罩关闭
+            content: 'http://localhost:18900/base/userSave.html'
+        });
+
+  }
+
+  //监听行工具事件
+  table.on('tool(test)', function(obj){
+    var data = obj.data;
+    //console.log(obj)
+    if(obj.event === 'authorize'){
+        var data = obj.data;
+        authorizeUser(data);
+    } else if(obj.event === 'edit'){
+        var data = obj.data;
+        updateUser(data);
+    }
+  });
+
+  function updateUser(data){
+        layer.open({
+            type: 2,
+            skin: 'layui-layer-demo', //样式类名
+            title: '修改Focus Cloud 用户',
+            closeBtn: 1, //不显示关闭按钮
+            anim: 2,
+            area: ['400px', '500px'],
+            shadeClose: true, //开启遮罩关闭
+            content: 'http://localhost:18900/base/userUpdate.html/#/id='+data['id']
+        });
+
+  }
+
+});
+
+</script>
+
+</body>
+</html>

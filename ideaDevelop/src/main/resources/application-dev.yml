@@ -1,0 +1,19 @@
+server:
+  port: 18800
+eureka:
+  instance:
+    prefer-ip-address: true #这个注解还不明白什么意思
+    hostname: localhost
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:18800/erueka
+      #zone1: http://localhost:18800/erueka
+    #availability-zones: #可获得的region和其zone有哪些
+      #xian: zone1
+    #region: xian #此实例所处的 region
+  server:
+    enable-self-preservation: false #测试环境，可关闭自我保护模式，否则如果服务没有心跳，还会保护着不让剔除
+    eviction-interval-timer-in-ms: 5000 #调用剔除任务的频率，由默认的60s改为5s，，尽量任务失效就剔除
+    response-cache-auto-expiration-in-seconds: 60 #虽然实例下线会告诉注册中心，但是Eureka 的RestApi有ResponseCache,导致服务下线了但服务的api还能用，降低换成的更新时间

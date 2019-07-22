@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.basic.BaseUserMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="TINYINT" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="IMAGE_ID" property="imageId" jdbcType="VARCHAR" />
+    <result column="SUPERMAN" property="superman" jdbcType="BIT" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="SIGNATURE" property="signature" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CREAT_USER" property="creatUser" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="SEX" property="sex" jdbcType="BIT" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_user
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.focus.base.domain.basic.BaseUser" >
+    insert into base_user (ID, USER_TYPE, LOGIN_NAME, 
+      REAL_NAME, NICK_NAME, PASSWORD, 
+      IMAGE_ID, SUPERMAN, PHONE_NUMBER, 
+      SIGNATURE, EMAIL, CREAT_USER, 
+      CREAT_DATE, UPDATE_USER, UPDATE_DATE,SEX,STATUS
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userType,jdbcType=TINYINT}, #{loginName,jdbcType=VARCHAR}, 
+      #{realName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{imageId,jdbcType=VARCHAR}, #{superman,jdbcType=BIT}, #{phoneNumber,jdbcType=VARCHAR},
+      #{signature,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{creatUser,jdbcType=VARCHAR}, 
+      #{creatDate,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP},
+      #{sex,jdbcType=BIT},#{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.focus.base.domain.basic.BaseUser" >
+    update base_user
+    set USER_TYPE = #{userType,jdbcType=TINYINT},
+      LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      NICK_NAME = #{nickName,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      IMAGE_ID = #{imageId,jdbcType=VARCHAR},
+      SUPERMAN = #{superman,jdbcType=BIT},
+      PHONE_NUMBER = #{phoneNumber,jdbcType=VARCHAR},
+      SIGNATURE = #{signature,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CREAT_USER = #{creatUser,jdbcType=VARCHAR},
+      CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP},
+      UPDATE_USER = #{updateUser,jdbcType=VARCHAR},
+      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, USER_TYPE, LOGIN_NAME, REAL_NAME, NICK_NAME, PASSWORD, IMAGE_ID, SUPERMAN, 
+    PHONE_NUMBER, SIGNATURE, EMAIL, CREAT_USER, CREAT_DATE, UPDATE_USER, UPDATE_DATE
+    from base_user
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, USER_TYPE, LOGIN_NAME, REAL_NAME, NICK_NAME, PASSWORD, IMAGE_ID, SUPERMAN, 
+    PHONE_NUMBER, SIGNATURE, EMAIL, CREAT_USER, CREAT_DATE, UPDATE_USER, UPDATE_DATE
+    from base_user
+  </select>
+</mapper>

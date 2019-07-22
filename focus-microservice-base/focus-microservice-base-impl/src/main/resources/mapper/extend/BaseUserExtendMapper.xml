@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.extend.BaseUserExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_TYPE" property="userType" jdbcType="TINYINT" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="IMAGE_ID" property="imageId" jdbcType="VARCHAR" />
+    <result column="SUPERMAN" property="superman" jdbcType="BIT" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="SIGNATURE" property="signature" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CREAT_USER" property="creatUser" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="SEX" property="sex" jdbcType="BIT" />
+  </resultMap>
+
+    <select id="selectByLoginName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, USER_TYPE, LOGIN_NAME, REAL_NAME, NICK_NAME, PASSWORD, IMAGE_ID, SUPERMAN, 
+    PHONE_NUMBER, SIGNATURE, EMAIL, CREAT_USER, CREAT_DATE, UPDATE_USER, UPDATE_DATE,STATUS,SEX
+    from base_user
+    where  LOGIN_NAME = #{loginName,jdbcType=VARCHAR}
+  </select>
+
+  <resultMap id="UserListResultMap" type="com.focus.base.domain.extend.ListBaseUser" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
+    <result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="BIT" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="IMAGE_ID" property="imageId" jdbcType="VARCHAR" />
+    <result column="PHONE_NUMBER" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="SIGNATURE" property="signature" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="userList" resultMap="UserListResultMap">
+    SELECT
+      a.*
+    FROM
+     base_user a
+    WHERE
+      a.`STATUS` = 1
+    ORDER BY
+     a.CREAT_DATE DESC
+  </select>
+
+
+  <update id="batchDelete">
+    UPDATE base_user SET STATUS = 2 WHERE id in
+    (
+    <foreach collection="list" item="id" separator=",">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+    )
+  </update>
+  <update id="updateUser">
+    update base_user
+    set
+    REAL_NAME = #{baseUser.realName,jdbcType=VARCHAR},
+    NICK_NAME = #{baseUser.nickName,jdbcType=VARCHAR},
+    PASSWORD = #{baseUser.password,jdbcType=VARCHAR},
+    PHONE_NUMBER = #{baseUser.phoneNumber,jdbcType=VARCHAR},
+    SIGNATURE = #{baseUser.signature,jdbcType=VARCHAR},
+    EMAIL = #{baseUser.email,jdbcType=VARCHAR},
+    UPDATE_USER = #{baseUser.updateUser,jdbcType=VARCHAR},
+    UPDATE_DATE = #{baseUser.updateDate,jdbcType=TIMESTAMP},
+    SEX =  #{baseUser.sex,jdbcType=BIT}
+    where ID = #{baseUser.id,jdbcType=VARCHAR}
+  </update>
+</mapper>

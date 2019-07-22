@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.extend.BaseAuthorityExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseAuthority" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="METHOD" property="method" jdbcType="VARCHAR" />
+    <result column="CONTROLLER" property="controller" jdbcType="VARCHAR" />
+    <result column="DES" property="des" jdbcType="VARCHAR" />
+    <result column="CREAT_USER" property="creatUser" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="getAuthorityByUser" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+    d.AUTHORITY_ID,e.`CODE`
+    FROM
+    base_user a
+    LEFT JOIN base_user_role_r b ON a.ID = b.USER_ID
+    LEFT JOIN base_role_resource_r c ON b.ROLE_ID = c.ROLE_ID
+    LEFT JOIN base_resource_authority_r d ON d.RESOURCE_ID = c.RESOURCE_ID
+    LEFT JOIN base_authority e ON e.ID = d.AUTHORITY_ID
+    LEFT JOIN base_role f ON f.ID = c.ROLE_ID
+    WHERE a.ID = #{userId,jdbcType=VARCHAR}
+    AND a.STATUS=1
+    AND f.`STATUS`=1
+  </select>
+</mapper>

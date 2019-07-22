@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" ></meta>
+  <title>开始使用layui</title>
+  <link rel="stylesheet" href="../layui/css/layui.css" />
+  <script src="../layui/layui.js"></script>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+</head>
+<body>
+<div id="d">你好</div>
+ <input type="text" class="layui-input" id="test1" />
+ 
+ <button type="button" class="layui-btn" id="test2">
+  <i class="layui-icon">&#xe67c;</i>上传图片
+</button>
+ 
+<script>
+$(function(){
+	
+	$("#b").click(function(){
+		var data={"title":"主题","password":"123",
+				"like[0]":"girl","like[1]":"swim",
+				"sw":1,
+				"person.grade":"一年级","person.clazz":"200班",
+				"animalList[0].age":"10","animalList[0].color":"red",
+				"animalList[1].age":"26","animalList[1].color":"blue"};
+		
+		var d = {"title":"主题"};
+		
+		 $.post("ff",data,function(){
+			 
+		 });
+		 
+	});
+	
+	 $("#b1").click(function(){
+		 $.post("aa",{"aa":"melo","cc":"18"},function(){
+			 
+		 });
+	 });
+	 
+	 $("#b2").click(function(){
+		 $.post("bb",{"grade":"1","clazz":"200"},function(){
+			 
+		 });
+	 });
+	
+	 $("#b3").click(function(){
+		 $.get("aa",{"aa":"melo","cc":"18"},function(){
+			 
+		 });
+	 });
+	 
+	 $("#b4").click(function(){
+		$.get("cc/james/18",{"name":"melo","age":"18"},function(){
+			 
+		 });
+		 
+	 });
+	 $("#b5").click(function(){
+
+			 $.ajax({
+			     url: 'cc/melo/26',
+			     type: 'POST',
+			     data:{"_method":"DELETE"},
+			     success: function(result) {
+			     }
+			 });
+
+		 });
+});
+</script> 
+	<button id="b">提交pojo</button>
+	
+	<button id="b1">提交requestParam</button>
+	
+	<button id="b2">提交requestParam对象</button>
+	
+	<button id="b3">交requestParam get</button>
+	
+	<button id="b4">path get</button>
+	
+	<button id="b5">path delete</button>
+</body>
+</html>

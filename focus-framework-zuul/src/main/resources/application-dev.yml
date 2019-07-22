@@ -1,0 +1,48 @@
+server:
+  port: 18900
+
+spring:
+  application:
+    name: focus-zuul
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/focus_cloud?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: pangtiemin
+
+eureka:
+  instance:
+    prefer-ip-address: true
+      #metadata-map:
+    #zone: zone1 #此实例所处的zone
+  client:
+    #availability-zones: #可获得的region和其zone有哪些
+    #xian: zone1
+    #region: xian #此实例所处的 region
+    serviceUrl:
+      defaultZone: http://localhost:18800/eureka/
+      #zone1: http://localhost:18800/erueka
+
+zuul:
+  #设置请求超时时间
+  connect-timeout-millis: 15000 #HTTP连接超时要比Hystrix的大
+  socket-timeout-millis: 60000   #socket超时
+  #SendErrorFilter:
+   # error:
+   #   disable: true #禁用zuul默认的异常过滤器
+  errorControllerUrl: /error #自定义配置，异常处理接口
+  routes:
+    focus-base: # 通过服务名serviceId路由，不通过具体的url
+      path: /base/**
+      serviceId: focus-base
+      #默认敏感头是"Cookie", "Set-Cookie", "Authorization"这三项,取消这三项，向下游服务请求带上这些headers
+      #Access-Control-Allow-Origin,Access-Control-Allow-Methods 解决其他服务的js向zuul发起请求的跨域问题
+      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+    focus-notice: # 通过服务名serviceId路由，不通过具体的url
+      path: /notice/**
+      serviceId: focus-notice
+      sensitiveHeaders: Access-Control-Allow-Origin,Access-Control-Allow-Methods
+
+ribbon:
+  ReadTimeout: 120000
+  ConnectTimeout: 30000

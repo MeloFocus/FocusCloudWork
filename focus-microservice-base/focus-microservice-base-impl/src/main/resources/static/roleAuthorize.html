@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+  <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+
+<div class="layui-btn-container" style="margin-left: 50px;">
+    <button type="button" class="layui-btn layui-btn-sm" lay-demo="getChecked">授权</button>
+</div>
+
+<div id="test1" class="demo-tree-more" style="margin-left: 50px;"></div>
+
+<script>
+layui.use(['form','layer','tree', 'util'], function(){
+  var form = layui.form;
+  var layer = layui.layer;
+   var tree = layui.tree;
+  var util = layui.util;
+
+   var router = layui.router();
+   var roleIds = router.search.roleIds;
+
+   var roleList= new Array(); //定义一数组
+   roleList[0]=roleIds;
+
+    var rparam = {"roleIds[0]":roleIds};
+
+
+   var d = [];
+   $.get("http://localhost:18900/base/baseResource/resourceTree",function(result){
+       if(result.status==500){
+           layer.msg(result.data, {icon: 5},{time: 1500})
+       }
+       else if(result.status==502){
+            window.location.href = "http://localhost:18900/base/loginpage";
+        }
+       else if(result.status==200){
+            var d = [];
+            getResource(result.data,d);
+
+             tree.render({
+                  elem: '#test1'  //绑定元素
+                  ,data: d
+                  ,showCheckbox:true
+                  ,id: 'demoId1'
+             });
+       }
+    });
+
+    function getResource(data,d){
+        $.each(data,function (i,j){
+            d[i]={};
+            d[i]['title'] = j['name'];
+            d[i]['id'] = j['id'];
+            d[i]['spread'] = true;
+            if(j['childrenList']!=null){
+                d[i]['children'] = [];
+                var a = getResource(j['childrenList'],d[i]['children']);
+                d[i]['children'] = a;
+            }
+        });
+        return d;
+    };
+  
+  //按钮事件
+  util.event('lay-demo', {
+    getChecked: function(othis){
+          var checkedData = tree.getChecked('demoId1'); //获取选中节点的数据
+          $.each(checkedData,function (i,j){
+            rparam['resourceIds['+i+']']=j['id'];
+          });
+
+
+          $.post("http://localhost:18900/base/baseRoleResource/authorize",rparam,function(result){
+            if(result.status==500){
+               layer.msg(result.data, {icon: 5},{time: 1500})
+           }
+           else if(result.status==200){
+              layer.msg('授权成功', {icon: 1});
+
+                setTimeout(function(){ x.value = "2 秒" }, 1000);
+                //当你在iframe页面关闭自身时
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+           }
+      });
+    }
+  });
+
+
+});
+</script>
+</body>
+</html>

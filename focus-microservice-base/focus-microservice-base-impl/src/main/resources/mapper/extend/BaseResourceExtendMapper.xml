@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.extend.BaseResourceExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseResource" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="TINYINT" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="PID" property="pid" jdbcType="VARCHAR" />
+    <result column="PATH" property="path" jdbcType="VARCHAR" />
+    <result column="SORT" property="sort" jdbcType="TINYINT" />
+    <result column="DES" property="des" jdbcType="VARCHAR" />
+    <result column="MENU_ROUTE" property="menuRoute" jdbcType="VARCHAR" />
+    <result column="CREAT_USER" property="creatUser" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectIndexResourceByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+      c.ID,
+      c.NAME,
+      c.TYPE,
+      c.CODE,
+      c.PID,
+      c.PATH,
+      c.SORT,
+      c.DES,
+      c.MENU_ROUTE,
+      c.CREAT_USER,
+      c.CREAT_DATE,
+      c.UPDATE_USER,
+      c.UPDATE_DATE
+    FROM
+    base_user_role_r a
+    INNER JOIN base_role_resource_r b ON a.ROLE_ID = b.ROLE_ID
+    INNER JOIN base_resource c ON c.ID = b.RESOURCE_ID
+    WHERE
+      a.USER_ID = #{userId,jdbcType=VARCHAR}
+      AND c.PID = '-1'
+      AND c.TYPE= 1
+    ORDER BY c.SORT
+  </select>
+
+  <select id="selectAllIndxResource" resultMap="BaseResultMap">
+    SELECT
+      *
+    FROM
+    base_resource a
+    WHERE
+     a.TYPE = 1
+    ORDER BY a.SORT
+  </select>
+
+  <select id="getResourcesByModule" resultMap="BaseResultMap">
+      <bind name="pattern" value="moduleCode +'%'" />
+      SELECT
+      *
+      FROM
+      base_resource a
+      WHERE
+      a.PATH LIKE #{pattern}
+      AND a.`CODE` != #{moduleCode,jdbcType=VARCHAR}
+      ORDER BY
+      a.SORT
+  </select>
+
+  <select id="getResourcesByModuleAndUserId" resultMap="BaseResultMap">
+      <bind name="pattern" value="moduleCode +'%'" />
+      SELECT
+      c.*
+      FROM
+      base_user_role_r a
+      INNER JOIN base_role_resource_r b ON a.ROLE_ID = b.ROLE_ID
+      INNER JOIN base_resource c ON b.RESOURCE_ID = c.ID
+      WHERE
+      c.PATH  LIKE #{pattern}
+      AND c.`CODE` != #{moduleCode,jdbcType=VARCHAR}
+      AND a.ID = #{userId,jdbcType=VARCHAR}
+      ORDER BY
+      c.SORT
+  </select>
+</mapper>

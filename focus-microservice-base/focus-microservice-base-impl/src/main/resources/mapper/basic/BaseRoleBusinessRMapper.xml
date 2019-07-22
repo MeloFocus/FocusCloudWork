@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.basic.BaseRoleBusinessRMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseRoleBusinessR" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="CLASS_PK" property="classPk" jdbcType="VARCHAR" />
+    <result column="CLASS_NAME" property="className" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_role_business_r
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.focus.base.domain.basic.BaseRoleBusinessR" >
+    insert into base_role_business_r (ID, ROLE_ID, CLASS_PK, 
+      CLASS_NAME)
+    values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{classPk,jdbcType=VARCHAR}, 
+      #{className,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.focus.base.domain.basic.BaseRoleBusinessR" >
+    update base_role_business_r
+    set ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      CLASS_PK = #{classPk,jdbcType=VARCHAR},
+      CLASS_NAME = #{className,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, ROLE_ID, CLASS_PK, CLASS_NAME
+    from base_role_business_r
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, ROLE_ID, CLASS_PK, CLASS_NAME
+    from base_role_business_r
+  </select>
+</mapper>

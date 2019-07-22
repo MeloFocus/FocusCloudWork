@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!--让a标签打开新页面 -->
+    <base target="_blank" />
+     <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" ></meta>
+  <title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+    <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+    <!--<script src="http://localhost:18900/base/layui/focus.js"></script>-->
+</head>
+<body class="layui-layout-body">
+<script>
+layui.use(['element','layer'], function(){
+     var element = layui.element;
+
+     var currentPage = 1;
+     var limit = 10;
+
+    //请求模块资源
+    $.get("http://localhost:18900/base/baseResource/resourcesInModule",{'moduleCode':'module_authority_manage'},function(result){
+        if(result.status==500){
+            layer.msg(result.data, {icon: 5},{time: 1500})
+        }
+        else if(result.status==200){
+            //默认打开第一个菜单
+            showMenum(result.data);
+        }
+        else if(result.status==502){
+            window.location.href = "http://localhost:18900/base/loginpage";
+        }
+    });
+
+    function showMenum(data){
+        $.each(data,function (i,j){
+            if(j['type']==2){
+                $("#menu").append("<li class='layui-nav-item'> <a style='color:black' id='a"+i+"'>"+ j['name']+"</a></li>");
+
+                $("#a"+i).click(function(){
+                    $("#content").attr({
+                      "src" :j['menuRoute']
+                    });
+                });
+            }
+        });
+    }
+
+});
+</script>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header layui-bg-black">
+            Focus Cloud
+        </div>
+
+        <div class="layui-side">
+            <div class="layui-side-scroll">
+                <ul class="layui-nav layui-nav-tree layui-bg-gray"  lay-filter="test" id="menu">
+                    <!--<li class="layui-nav-item"><a href="">侧边栏导航</a></li>-->
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <iframe id="content" src="http://localhost:18900/base/roleList.html" frameborder="0" height="100%" width="100%"></iframe>
+        </div>
+
+        <div class="layui-footer">s
+            联系作者qq:825178382,坐标西安
+        </div>
+    </div>
+</body>
+</html>

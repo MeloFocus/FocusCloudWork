@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+  <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <input type="text" name="loginName" placeholder="请输入" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">单选框</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <input type="radio" name="sex" value="1" title="男">
+                        <input type="radio" name="sex" value="0" title="女" checked>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block" style="width:60%">
+                            <input type="text" name="realName" required  lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input" style="width:60%">
+                        </div>
+                    </div>
+
+                    <label class="layui-form-label">昵称</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <input type="text" name="nickName"  placeholder="请输入昵称" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">电话</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <input type="text" name="phoneNumber"  placeholder="请输入电话" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">邮箱</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <input type="text" name="email"  placeholder="请输入邮箱" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">签名</label>
+                    <div class="layui-input-block" style="width:60%">
+                        <textarea name="signature" placeholder="请输入内容" class="layui-textarea" style="width:60%"></textarea>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="*">新增</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+<script>
+layui.use(['form','layer'], function(){
+  var form = layui.form;
+  var layer = layui.layer
+  
+  //各种基于事件的操作，下面会有进一步介绍
+  form.on('submit(*)', function(data){
+
+       <!--var d = {'loginName':data.field.username,'sex':data.field.sex,'realName':data.field.realName，'nickName'};-->
+      $.post("http://localhost:18900/base/baseUser/user",data.field,function(result){
+          if(result.status==200){
+                layer.msg('新增成功', {icon: 1});
+
+                setTimeout(function(){ x.value = "2 秒" }, 1000);
+                //当你在iframe页面关闭自身时
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+
+                //刷新父页面
+                 window.parent.location.reload();
+          }else if(result.status==500){
+                layer.msg(result.data, {icon: 5});
+          }
+          else if(result.status==502){
+            window.location.href = "http://localhost:18900/base/loginpage";
+          }
+     });
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	}); 
+});
+</script>
+</body>
+</html>

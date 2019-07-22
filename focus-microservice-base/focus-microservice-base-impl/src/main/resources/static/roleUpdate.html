@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+  <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+</head>
+<body>
+
+            <form class="layui-form" lay-filter="test">
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="display:none">角色id</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="id" id="id"  autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label"  style="display:none">角色名称</label>
+                    <div class="layui-input-block" style="width:60%;margin-top: 10px">
+                        <input type="hidden" name="name" placeholder="请输入" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">角色标志码</label>
+                    <div class="layui-input-block" style="width:60%;margin-top: 10px">
+                        <input type="text" name="code" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">序号</label>
+                    <div class="layui-input-block" style="width:60%;margin-top: 10px">
+                        <input type="text" name="sort" required lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" style="width:60%">
+                    </div>
+
+                    <label class="layui-form-label">描述</label>
+                    <div class="layui-input-block" style="width:60%;margin-top: 10px">
+                        <textarea name="des" placeholder="请输入内容" class="layui-textarea" style="width:60%"></textarea>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="*">修改</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+<script>
+layui.use(['form','layer'], function(){
+  var form = layui.form;
+  var layer = layui.layer
+
+   var router = layui.router();
+   var roleId = router.search.id;
+
+   $.get("http://localhost:18900/base/baseRole/detail?roleId="+roleId,function(result){
+        form.val("test", {
+          "id": result.data['id']
+          ,"name": result.data['name']
+          ,"code":result.data['code']
+          ,"sort":result.data['sort']
+          ,"des":result.data['des']
+        })
+   });
+
+   form.on('submit(*)', function(data){
+       $.ajax({
+         url: 'http://localhost:18900/base/baseRole/role',
+         type: 'PUT',
+         data:data.field,
+         success: function(result) {
+             if(result.status==200){
+                    layer.msg("修改成功");
+                     //当你在iframe页面关闭自身时
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    //刷新父页面
+                 window.parent.location.reload();
+              }else if(result.status==500){
+                    layer.open({
+                      title: '提醒'
+                      ,content: result.data
+                    });
+              }
+              else if(result.status==502){
+                window.location.href = "http://localhost:18900/base/loginpage";
+              }
+         }
+       });
+    return false;
+  });
+
+});
+</script>
+</body>
+</html>

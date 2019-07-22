@@ -1,0 +1,14 @@
+
+server:
+  port: 18800
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://localhost:18800/erueka
+  instance:
+    hostname: localhost
+  server:
+    enable-self-preservation: true #开发环境，打开自我保护，不能因为网络问题无法保持心跳，就剔除健康的服务
+    renewal-percent-threshold: 0.49 #默认0.85，降低每分钟需要收到的续约次数阈值

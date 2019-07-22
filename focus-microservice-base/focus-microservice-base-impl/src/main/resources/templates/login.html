@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Focus Cloud</title>
+    <link rel="stylesheet" href="http://localhost:18900/base/layui/css/layui.css" />
+  <script src="http://localhost:18900/base/layui/layui.js"></script>
+    <script src="http://localhost:18900/base/layui/jquery-3.0.0.min.js"></script>
+</head>
+<body background="http://localhost:18900/base/1.jpg" style="background-size:100%">
+
+<div class="layui-container" >
+    <div class="layui-row layui-col-space10" style="height:250px">
+    </div>
+    <div class="layui-row layui-col-space10">
+        <div class="layui-col-md8">
+        </div>
+        <div class="layui-col-md3">
+            <form class="layui-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="*">登录</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+layui.use(['form','layer'], function(){
+  var form = layui.form;
+  var layer = layui.layer
+  
+  //各种基于事件的操作，下面会有进一步介绍
+  form.on('submit(*)', function(data){
+
+      var d = {"loginName":data.field.username,"password":data.field.password}
+      $.post("http://localhost:18900/base/login",d,function(result){
+          if(result.status==200){
+                location.href="http://localhost:18900/base/index.html";
+          }else if(result.status==500){
+                layer.open({
+                  title: '提醒'
+                  ,content: result.data
+                });
+          }
+     });
+	  return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+	}); 
+});
+</script>
+</body>
+</html>

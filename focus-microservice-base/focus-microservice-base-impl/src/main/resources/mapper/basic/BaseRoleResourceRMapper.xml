@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.basic.BaseRoleResourceRMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseRoleResourceR" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+    <result column="RESOURCE_ID" property="resourceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from base_role_resource_r
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.focus.base.domain.basic.BaseRoleResourceR" >
+    insert into base_role_resource_r (ID, ROLE_ID, RESOURCE_ID
+      )
+    values (#{id,jdbcType=VARCHAR}, #{roleId,jdbcType=VARCHAR}, #{resourceId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.focus.base.domain.basic.BaseRoleResourceR" >
+    update base_role_resource_r
+    set ROLE_ID = #{roleId,jdbcType=VARCHAR},
+      RESOURCE_ID = #{resourceId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select ID, ROLE_ID, RESOURCE_ID
+    from base_role_resource_r
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, ROLE_ID, RESOURCE_ID
+    from base_role_resource_r
+  </select>
+</mapper>

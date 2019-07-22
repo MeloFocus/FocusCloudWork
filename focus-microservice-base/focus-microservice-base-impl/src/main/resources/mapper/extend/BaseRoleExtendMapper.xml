@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.focus.base.mapper.extend.BaseRoleExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.focus.base.domain.basic.BaseRole" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CODE" property="code" jdbcType="VARCHAR" />
+    <result column="TYPE" property="type" jdbcType="INTEGER" />
+    <result column="SORT" property="sort" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="DES" property="des" jdbcType="VARCHAR" />
+    <result column="CREAT_USER" property="creatUser" jdbcType="VARCHAR" />
+    <result column="CREAT_DATE" property="creatDate" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER" property="updateUser" jdbcType="VARCHAR" />
+    <result column="UPDATE_DATE" property="updateDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <update id="updateRole">
+    update base_role
+    set NAME = #{baseRole.name,jdbcType=VARCHAR},
+    CODE = #{baseRole.code,jdbcType=VARCHAR},
+    SORT = #{baseRole.sort,jdbcType=INTEGER},
+    DES = #{baseRole.des,jdbcType=VARCHAR},
+    UPDATE_USER = #{baseRole.updateUser,jdbcType=VARCHAR},
+    UPDATE_DATE = #{baseRole.updateDate,jdbcType=TIMESTAMP}
+    where ID = #{baseRole.id,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteRole">
+    update base_role
+    set
+    STATUS = 2
+    <where>
+      id in
+      (
+        <foreach collection="list" separator="," item="item">
+            #{item,jdbcType=VARCHAR}
+        </foreach>
+      )
+    </where>
+  </delete>
+
+
+</mapper>
