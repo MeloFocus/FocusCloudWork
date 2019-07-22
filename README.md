@@ -1,7 +1,8 @@
 
 # FocusCloud简介
 一个以SpringCloud和Shiro为基础的管理系统，已经实现了基础权限功能，后续会开发其他功能</br>
-[博客介绍了简要搭建过程：](https://blog.csdn.net/u014203449/article/details/88087516)
+[博客介绍了简要搭建过程：](https://blog.csdn.net/u014203449/article/details/88087516)</br>
+https://blog.csdn.net/u014203449/article/details/88087516
 1.按博客思路实现了SpringCloud和shiro结合的权限方案，可供微服务权限方案的一个参考</br>
 2.前端页面和一些接口还有待完善</br>
 
@@ -17,7 +18,7 @@ notice服务:目前业务没有写，但可以完成服务的登录授权测试�
 # 使用框架
 SpringCloud Finchley.BUILD-SNAPSHOT,Shiro,Mysql,Redisson,jdk1.8,layiui
 
-#部署过程
+# 部署过程
 1.将zuul、base、notice服务的application-dev配置文件中的数据库和redis地址改为自己的</br>
 2.执行sql，sql这里还不完整，角色资源和权限码的关系还没调整好，可以先用超级管理员实验</br>
 3.访问localhost:18900/base/loginpage 超级管理员用户melo 密码123456</br>
