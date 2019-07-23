@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50022
 File Encoding         : 65001
 
-Date: 2019-07-22 21:29:15
+Date: 2019-07-23 21:40:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -112,6 +112,7 @@ INSERT INTO `base_resource` VALUES ('a59c887d-f2d6-1037-9a77-451bb43a0465', '用
 INSERT INTO `base_resource` VALUES ('cb39f08b-f9d9-1037-87fb-f895045088b8', '角色管理', '2', 'menu_role_list', '26fb1fd0-ee0b-1037-941f-2ba9d11d1d3a', 'module_authority_manage/menu_role_list', '1', null, '角色管理', 'roleList.html', 'melo', '2019-07-17 19:54:20', 'melo', '2019-07-17 19:54:20');
 INSERT INTO `base_resource` VALUES ('e6b66c83-f2d6-1037-9a77-451bb43a0465', '新增用户', '3', 'btn_user_add', 'a59c887d-f2d6-1037-9a77-451bb43a0465', 'module_user_manage/menu_user_list/btn_user_add', '1', null, '新增用户', null, 'mleo', '2019-07-08 21:47:08', 'mleo', '2019-07-08 21:47:10');
 INSERT INTO `base_resource` VALUES ('fd2da964-f2d7-1037-9a77-451bb43a0465', '查看用户', '3', 'btn_user_detail', 'a59c887d-f2d6-1037-9a77-451bb43a0465', 'module_user_manage/menu_user_list/btn_user_detail', '3', null, '用户详情', null, 'mleo', '2019-07-08 21:47:08', 'mleo', '2019-07-08 21:47:08');
+INSERT INTO `base_resource` VALUES ('fsdfewfwefewfwefsdaf324234234234234', '首页页面', '4', 'page_index', '-1', 'page_index', '1', null, '首页页面', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for base_resource_authority_r
@@ -123,13 +124,30 @@ CREATE TABLE `base_resource_authority_r` (
   `AUTHORITY_ID` varchar(50) default NULL,
   PRIMARY KEY  (`ID`),
   KEY `FK_Reference_7` (`RESOURCE_ID`),
-  CONSTRAINT `FK_Reference_6` FOREIGN KEY (`RESOURCE_ID`) REFERENCES `base_resource` (`ID`),
-  CONSTRAINT `FK_Reference_7` FOREIGN KEY (`RESOURCE_ID`) REFERENCES `base_authority` (`ID`)
+  KEY `Fk_Authority` (`AUTHORITY_ID`),
+  CONSTRAINT `Fk_Authority` FOREIGN KEY (`AUTHORITY_ID`) REFERENCES `base_authority` (`ID`),
+  CONSTRAINT `FK_Reference_6` FOREIGN KEY (`RESOURCE_ID`) REFERENCES `base_resource` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of base_resource_authority_r
 -- ----------------------------
+INSERT INTO `base_resource_authority_r` VALUES ('01162888-fe9b-1037-8555-ed25f14ba24d', '7db94c7c-ee0a-1037-941f-2ba9d11d1d3a', '161331bd-fd07-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('10ee19ab-fe9b-1037-8555-ed25f14ba24d', '81d1908e-f9da-1037-87fb-f895045088b8', '346dc499-fd05-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('13400306-fe99-1037-8555-ed25f14ba24d', '15834162-f2d7-1037-9a77-451bb43a0465', 'ec20e176-fd06-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('3241056f-fe9b-1037-8555-ed25f14ba24d', '95f53f07-f9da-1037-87fb-f895045088b8', '53872bd0-fd05-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('35cbf620-fe99-1037-8555-ed25f14ba24d', '15834162-f2d7-1037-9a77-451bb43a0465', '5b8d8848-fd07-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('364b4909-fe9a-1037-8555-ed25f14ba24d', 'fsdfewfwefewfwefsdaf324234234234234', '4bbb0c86-fd06-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('42f54fbe-fe9b-1037-8555-ed25f14ba24d', 'a59c887d-f2d6-1037-9a77-451bb43a0465', '161331bd-fd07-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('49df49ad-fe9a-1037-8555-ed25f14ba24d', 'fsdfewfwefewfwefsdaf324234234234234', '7de33051-fd06-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('58d7b3c7-fe9b-1037-8555-ed25f14ba24d', 'cb39f08b-f9d9-1037-87fb-f895045088b8', 'ff3a2aa7-fd04-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('69c39a50-fe9b-1037-8555-ed25f14ba24d', 'e6b66c83-f2d6-1037-9a77-451bb43a0465', 'dd48bf2a-fd06-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('7f569210-fe9b-1037-8555-ed25f14ba24d', 'fd2da964-f2d7-1037-9a77-451bb43a0465', '5b8d8848-fd07-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('a8e8aecf-fe9a-1037-8555-ed25f14ba24d', '3c9a3cee-f2d8-1037-9a77-451bb43a0465', '06ac587d-fd07-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('b63e8e96-fe9a-1037-8555-ed25f14ba24d', '63778271-f2d8-1037-9a77-451bb43a0465', 'afecda90-fd07-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('c8642a87-fe9a-1037-8555-ed25f14ba24d', '64b31eed-f9da-1037-87fb-f895045088b8', '1a72eb4c-fd05-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('de88dd48-fe9a-1037-8555-ed25f14ba24d', '721d1b3c-f9da-1037-87fb-f895045088b8', '258a92eb-fd05-1037-86f1-f54783bc2480');
+INSERT INTO `base_resource_authority_r` VALUES ('ee9b341e-fe98-1037-8555-ed25f14ba24d', '1422c479-f9da-1037-87fb-f895045088b8', 'b4c0c384-fd06-1037-86f1-f54783bc2480');
 
 -- ----------------------------
 -- Table structure for base_role
@@ -153,9 +171,10 @@ CREATE TABLE `base_role` (
 -- ----------------------------
 -- Records of base_role
 -- ----------------------------
-INSERT INTO `base_role` VALUES ('123', '管理员', 'administrator', '1', '1', '1', null, null, null, null, null);
-INSERT INTO `base_role` VALUES ('77fe5872-5e2d-40c3-a42b-db1768f51ef0', '单位管理员', 'unit', null, '3', '1', 'sdff单位管理员', '123', '2019-07-17 21:18:43', '123', '2019-07-17 21:51:04');
-INSERT INTO `base_role` VALUES ('d705ad81-98dd-4550-a985-860a36bd1e02', '部门管理', 'department', '2', '3', '2', '21e', '123', '2019-07-17 21:50:40', '123', '2019-07-17 21:50:40');
+INSERT INTO `base_role` VALUES ('123', '管理员', 'administrator', '1', '1', '1', null, 'melo', null, 'melo', null);
+INSERT INTO `base_role` VALUES ('77fe5872-5e2d-40c3-a42b-db1768f51ef0', '单位管理员', 'unit', '2', '3', '1', 'sdff单位管理员', '123', '2019-07-17 21:18:43', '123', '2019-07-17 21:51:04');
+INSERT INTO `base_role` VALUES ('d705ad81-98dd-4550-a985-860a36bd1e02', '部门管理', 'department', '2', '4', '2', '21e', '123', '2019-07-17 21:50:40', '123', '2019-07-17 21:50:40');
+INSERT INTO `base_role` VALUES ('sdfefwertfe3br1234124412312', '普通用户', 'number', '1', '2', '1', '普通用户', 'melo', '2019-07-23 20:50:54', 'melo', '2019-07-23 20:50:58');
 
 -- ----------------------------
 -- Table structure for base_role_business_r
@@ -193,6 +212,7 @@ CREATE TABLE `base_role_resource_r` (
 -- ----------------------------
 -- Records of base_role_resource_r
 -- ----------------------------
+INSERT INTO `base_role_resource_r` VALUES ('1170bacd-fe9a-1037-8555-ed25f14ba24d', 'sdfefwertfe3br1234124412312', 'fsdfewfwefewfwefsdaf324234234234234');
 INSERT INTO `base_role_resource_r` VALUES ('a93868de-a866-4f07-bae8-f71925625f54', '123', '11881cc6-ee0c-1037-941f-2ba9d11d1d3a');
 
 -- ----------------------------
@@ -224,13 +244,13 @@ CREATE TABLE `base_user` (
 -- Records of base_user
 -- ----------------------------
 INSERT INTO `base_user` VALUES ('017ef0e8-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('01c84e9d-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('02167b3c-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('02582456-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('029be2cd-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('02e00142-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('0329d956-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('03768207-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
+INSERT INTO `base_user` VALUES ('01c84e9d-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('02167b3c-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('02582456-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('029be2cd-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('02e00142-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('0329d956-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('03768207-f416-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
 INSERT INTO `base_user` VALUES ('111', '1', 'james', 'james', 'lebron', 'df49ec48e56522d11151fb9ecd683aef', '', null, '\0', null, '生活是一场修行', null, null, '2019-07-10 11:42:45', null, null, '1');
 INSERT INTO `base_user` VALUES ('123', '1', 'melo', 'melo', 'cameron', 'df49ec48e56522d11151fb9ecd683aef', '', null, '', null, '我的旧约圣经也没挽回你', '825178382@qq.com', null, '2019-07-10 11:42:42', null, null, '1');
 INSERT INTO `base_user` VALUES ('1ee5fc42-14e3-49fa-bee7-27f6628b0f11', '2', 'kobe', 'kobe', 'kobe', 'p123456', '\0', null, '\0', '13934184115', '', '86416416@qq.com', '123', '2019-07-11 21:15:50', '123', '2019-07-11 21:15:50', null);
@@ -241,9 +261,9 @@ INSERT INTO `base_user` VALUES ('b3d4ea09-d7ee-4560-9887-06b81c9b14b0', '2', 'kk
 INSERT INTO `base_user` VALUES ('ba4082b3-c442-49be-b55e-92f2f5c951f1', '2', 'hiaaaaa', 'dddddddddd', 'qqqq', 'e2b23ca46cfb2e13218d0b9a34239664', '\0', null, '\0', '15689898989', '你不明白', '5614561@qq.com', '123', '2019-07-13 15:54:51', null, null, '1');
 INSERT INTO `base_user` VALUES ('eb170899-9a41-4531-b8ac-ec1ede0766f6', '2', 'oo', 'hbk', 'lkh', 'p45611556', '\0', null, '\0', '15755555555', '53', '45153@qq.com', '123', '2019-07-13 10:36:23', '123', '2019-07-13 10:36:23', '2');
 INSERT INTO `base_user` VALUES ('fa6536d1-211e-47af-9572-1436ee45d063', '2', 'qwe', 'qwee', 'qwe', 'pqweqw4651', '\0', null, '\0', '15688888888', 'wqe', '5612561@qq.com', '123', '2019-07-13 10:01:04', '123', '2019-07-13 10:01:04', '2');
-INSERT INTO `base_user` VALUES ('fd809628-f415-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('ff51a968-f415-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
-INSERT INTO `base_user` VALUES ('ff7dfbd7-f415-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '1');
+INSERT INTO `base_user` VALUES ('fd809628-f415-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('ff51a968-f415-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
+INSERT INTO `base_user` VALUES ('ff7dfbd7-f415-1037-9f9d-5ab169fbb184', '1', '莫一夕', 'hello', '小白', 'df49ec48e56522d11151fb9ecd683aef', '\0', null, '\0', null, '此情可待成追忆', null, null, null, null, null, '2');
 
 -- ----------------------------
 -- Table structure for base_user_role_r
