@@ -24,4 +24,12 @@ public class BaseUserRoleSaveVM {
     public void setRoleIds(List<String> roleIds) {
         this.roleIds = roleIds;
     }
+
+    public BaseUserRoleSaveVM() {
+    }
+
+    public BaseUserRoleSaveVM(List<String> userIds, List<String> roleIds) {
+        this.userIds = userIds;
+        this.roleIds = roleIds;
+    }
 }

@@ -5,6 +5,7 @@ import com.focus.base.domain.basic.BaseUser;
 import com.focus.base.domain.extend.ListBaseUser;
 import com.focus.base.mapper.basic.BaseUserMapper;
 import com.focus.base.mapper.extend.BaseUserExtendMapper;
+import com.focus.base.service.BaseUserRoleService;
 import com.focus.base.service.BaseUserService;
 import com.focus.base.util.ShiroUtils;
 import com.focus.base.vm.*;
@@ -19,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @Description
@@ -38,6 +36,9 @@ public class BaseUserServiceImpl implements BaseUserService {
 
     @Autowired
     BaseUserMapper baseUserMapper;
+
+    @Autowired
+    BaseUserRoleService baseUserRoleService;
 
     @Override
     public BaseUser selectByLoginName(String loginName) {
@@ -78,6 +79,10 @@ public class BaseUserServiceImpl implements BaseUserService {
         String password = new SimpleHash("md5",baseUser.getPassword(), baseUser.getId(), 2).toString();
         baseUser.setPassword(password);
         baseUserMapper.insert(baseUser);
+
+        List userIds = new ArrayList(){{add(baseUser.getId());}};
+        List roleIds = new ArrayList(){{add("sdfefwertfe3br1234124412312");}};//普通用户角色
+        baseUserRoleService.authorize(new BaseUserRoleSaveVM(userIds,roleIds));
     }
 
     @Override
