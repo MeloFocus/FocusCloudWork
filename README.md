@@ -15,6 +15,9 @@ common：公用模块</br>
 parent：父pom</br>
 notice服务:目前业务没有写，但可以完成服务的登录授权测试，单点登录到base认证，并且调用base服务接口。</br>
 
+# 系统架构
+![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/6.png) 
+
 # 使用框架
 SpringCloud Finchley.BUILD-SNAPSHOT,Shiro,Mysql,Redisson,jdk1.8,layiui
 
@@ -23,9 +26,7 @@ SpringCloud Finchley.BUILD-SNAPSHOT,Shiro,Mysql,Redisson,jdk1.8,layiui
 2.执行sql，sql这里还不完整，角色资源和权限码的关系还没调整好，可以先用超级管理员实验</br>
 3.访问localhost:18900/base/loginpage 超级管理员用户melo 密码123456</br>
 
-
 #一些截图
-![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/1.png) 
 ![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/2.png)  
 ![](https://github.com/MeloFocus/FocusCloudWork/blob/master/img/3.png)  
 
