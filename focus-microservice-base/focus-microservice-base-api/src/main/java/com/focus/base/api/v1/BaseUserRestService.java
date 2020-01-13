@@ -8,7 +8,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-@FeignClient(name = FocusMicroBaseConstants.SERVICE_APP_ID,fallback = BaseUserRestServiceHystrix.class)
+@FeignClient(name = FocusMicroBaseConstants.SERVICE_APP_ID)
 @RequestMapping("/baseUser")
 public interface BaseUserRestService {
 

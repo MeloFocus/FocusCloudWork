@@ -6,7 +6,7 @@ spring:
     name: focus-notice
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/focus?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://47.98.153.30:3306/focus_cloud?useUnicode=true&characterEncoding=utf-8
     username: root
     password: pangtiemin
 
