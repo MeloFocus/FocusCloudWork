@@ -1,6 +1,6 @@
-
+﻿
 # FocusCloud简介
-一个以SpringCloud和Shiro为基础的管理系统，已经实现了基础权限功能，后续会开发其他功能</br>
+一个以SpringCloud和Shiro为基础的管理系统，已经实现了基础权限功能，后续会开发其他功能. </br>
 
 1.可供微服务权限方案的一个参考</br>
 [博客介绍了简要搭建过程：](https://blog.csdn.net/u014203449/article/details/88087516)</br>
