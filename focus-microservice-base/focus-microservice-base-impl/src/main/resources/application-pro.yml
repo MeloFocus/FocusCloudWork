@@ -6,13 +6,39 @@ spring:
     name: focus-base
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/focus?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/focus_cloud?useUnicode=true&characterEncoding=utf-8
     username: root
     password: pangtiemin
-
+  redisson:
+    #address: redis://192.168.242.128:6379
+    address: redis://127.0.0.1:6379
 eureka:
+  instance:
+    prefer-ip-address: true
+      #metadata-map:
+    #zone: zone1 #此实例所处的zone
   client:
+    #availability-zones: #可获得的region和其zone有哪些
+    #xian: zone1
+    #region: xian #此实例所处的 region
     serviceUrl:
       defaultZone: http://localhost:18800/eureka/
-  instance:
-    lease-renewal-interval-in-seconds:   #Eureka client向Eureka server 发送心跳的时间间隔 10，默认是30 ，生产环境提高频率，避免因网络原因不能保持心跳，服务被剔除
+      #zone1: http://localhost:18800/erueka
+
+feign:
+  hystrix:
+    enabled: false
+ribbon:
+  ReadTimeout: 120000 #请求处理的超时时间
+  ConnectTimeout: 30000 #请求连接的超时时间
+
+
+
+mybatis:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml
+
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql

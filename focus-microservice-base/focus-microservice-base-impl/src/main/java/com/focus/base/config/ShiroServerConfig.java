@@ -138,7 +138,7 @@ public class ShiroServerConfig {
 
     /**
      * 配置shiro redisManager
-     * 网上的一个 shiro-redis 插件，实现了shiro的cache接口、CacheManager接口就
+     * 网上的一个 shiro-redis 插件，实现了shiro的cache接口FormAuthenticationFilter、CacheManager接口就
      * @return
      */
     @Bean
