@@ -7,6 +7,8 @@ public class BaseResource {
 
     private String name;
 
+    private String icon;
+
     private Byte type;
 
     private String code;
@@ -28,6 +30,14 @@ public class BaseResource {
     private String updateUser;
 
     private Date updateDate;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
 
     public String getId() {
         return id;

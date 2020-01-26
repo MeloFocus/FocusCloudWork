@@ -22,6 +22,17 @@ public class BaseResourceTreeVM {
 
     private String menuRoute;
 
+    private String icon;
+
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
     public List<BaseResourceTreeVM> getChildrenList() {
         return childrenList;
     }

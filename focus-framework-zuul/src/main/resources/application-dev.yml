@@ -32,7 +32,7 @@ zuul:
    #   disable: true #禁用zuul默认的异常过滤器
   errorControllerUrl: /error #自定义配置，异常处理接口
   routes:
-    focus-base: # 通过服务名serviceId路由，不通过具体的url
+    focus-base: # 通过服务名serviceId路由，不通过具体的url, 访问 /base/ 会路由到 focus-base服务
       path: /base/**
       serviceId: focus-base
       #默认敏感头是"Cookie", "Set-Cookie", "Authorization"这三项,取消这三项，向下游服务请求带上这些headers
