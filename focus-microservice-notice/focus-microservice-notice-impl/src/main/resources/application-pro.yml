@@ -1,4 +1,4 @@
-server:
+﻿server:
   port: 18902
 
 spring:
@@ -7,8 +7,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/focus_cloud?useUnicode=true&characterEncoding=utf-8
-    username: root
-    password: pangtiemin
+    username: xxxxxx
+    password: xxxxxx
 
 eureka:
   instance:
