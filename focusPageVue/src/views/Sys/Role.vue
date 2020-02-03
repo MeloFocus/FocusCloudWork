@@ -230,27 +230,20 @@ export default {
                 }
             })
         },
-        // 获取数据
-		findTreeData: function () {
-			this.menuLoading = true
-			this.$api.menu.findMenuTree().then((res) => {
-				this.menuData = res.data
-				this.menuLoading = false
-			})
-		},
-        		// 获取资源菜单数
+       
+        // 获取资源菜单数
 		findResourceTree: function () {
 			this.menuLoading = true
 			this.$api.role.findResourceTree().then((res) => {
-        if(res.status == 502){
-           this.$message({ message: res.data, type: 'error' })
-           return
-        }else if(res.status == 200){
-          //将后台传来的数据进行转换。转换成所需要的的数据 
-          this.menuData = res.data
-        }
-				this.menuLoading = false
-			})
+            if(res.status == 502){
+                this.$message({ message: res.data, type: 'error' })
+                return
+            }else if(res.status == 200){
+                //将后台传来的数据进行转换。转换成所需要的的数据 
+                this.menuData = res.data
+            }
+		    this.menuLoading = false
+		})
 		},
 		// 角色选择改变监听
 		handleRoleSelectChange(val) {
@@ -330,7 +323,7 @@ export default {
       	}
     },
     mounted() {
-        this.findDeptTree()
+      
     }
 }
 </script>

@@ -81,7 +81,7 @@ function addDynamicMenuAndRoutes(user, to, from) {
     console.log('')
     return
   }
-  api.menu.findMenuTree()
+  api.menu.findClickRoute({'moduleCode':'module_user_manage'})
   .then( (res) => {
     store.commit('setNavTree', res.data)
     // 添加动态路由
@@ -140,11 +140,11 @@ function addDynamicRoutes (menuList = [], routes = []) {
   for (var i = 0; i < menuList.length; i++) {
     if (menuList[i].children && menuList[i].children.length >= 1) {
       temp = temp.concat(menuList[i].children)
-    } else if (menuList[i].url && /\S/.test(menuList[i].url)) {
-       menuList[i].url = menuList[i].url.replace(/^\//, '')
+    } else if (menuList[i].menuRoute && /\S/.test(menuList[i].menuRoute)) {
+       menuList[i].menuRoute = menuList[i].menuRoute.replace(/^\//, '')
        // 创建路由配置
        var route = {
-         path: menuList[i].url,
+         path: menuList[i].menuRoute,
          component: null,
          name: menuList[i].name,
          meta: {
@@ -152,20 +152,20 @@ function addDynamicRoutes (menuList = [], routes = []) {
            index: menuList[i].id
          }
        }
-       let path = getIFramePath(menuList[i].url)
+       let path = getIFramePath(menuList[i].menuRoute)
        if (path) {
          // 如果是嵌套页面, 通过iframe展示
          route['path'] = path
          route['component'] = resolve => require([`@/views/IFrame/IFrame`], resolve)
          // 存储嵌套页面路由路径和访问URL
-         let url = getIFrameUrl(menuList[i].url)
+         let url = getIFrameUrl(menuList[i].menuRoute)
          let iFrameUrl = {'path':path, 'url':url}
          store.commit('addIFrameUrl', iFrameUrl)
        } else {
         try {
           // 根据菜单URL动态加载vue组件，这里要求vue组件须按照url路径存储
           // 如url="sys/user"，则组件路径应是"@/views/sys/user.vue",否则组件加载不到
-          let array = menuList[i].url.split('/')
+          let array = menuList[i].menuRoute.split('/')
           let url = ''
           for(let i=0; i<array.length; i++) {
              url += array[i].substring(0,1).toUpperCase() + array[i].substring(1) + '/'
@@ -185,7 +185,7 @@ function addDynamicRoutes (menuList = [], routes = []) {
     console.log('动态路由加载完成.')
   }
   return routes
- }
+}
  
  export default router
 

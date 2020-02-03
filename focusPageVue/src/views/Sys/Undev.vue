@@ -3,7 +3,7 @@
     <div class="site-content__wrapper">
       <div class="site-content">
         <h2 class="not-found-title">404</h2>
-        <p class="not-found-desc">抱歉！您访问的页面<em>失联</em>啦 ...</p>
+        <p class="not-found-desc">抱歉！您访问的页面<em>正处于开发过程中</em> ...</p>
         <el-button @click="$router.go(-1)">返回上一页</el-button>
         <el-button type="primary" class="not-found-btn-gohome" @click="$router.push('/')">进入首页</el-button>
       </div>
@@ -15,7 +15,6 @@
   export default {
   }
 </script>
-
 
 <style scoped lang="scss">
   .site-wrapper.site-page--not-found {

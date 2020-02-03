@@ -1,15 +1,9 @@
 import Mock from 'mockjs'
-
 Mock.XHR.prototype.withCredentials=true
 
 import { baseUrl } from '@/utils/global'
-import * as login from './modules/login'
-import * as user from './modules/user'
 import * as role from './modules/role'
-import * as dept from './modules/dept'
-import * as menu from './modules/menu'
-import * as dict from './modules/dict'
-import * as log from './modules/log'
+
 
 
 // 1. 开启/关闭[所有模块]拦截, 通过调[openMock参数]设置.
@@ -17,14 +11,7 @@ import * as log from './modules/log'
 // 3. 开启/关闭[业务模块中某个请求]拦截, 通过函数返回对象中的[isOpen属性]设置.
 let openMock = true
 // let openMock = false
-fnCreate(login, false)
-fnCreate(user, false)
 fnCreate(role, openMock)
-fnCreate(dept, false)
-fnCreate(menu, openMock)
-fnCreate(dict, openMock)
-fnCreate(log, openMock)
-
 /**
  * 创建mock模拟数据
  * @param {*} mod 模块

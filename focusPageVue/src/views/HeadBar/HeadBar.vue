@@ -4,14 +4,17 @@
     <span class="collapse-switcher" @click.prevent="collapse">
       <i class="el-icon-menu"></i>
     </span>
-  
     <!-- 导航菜单 -->
-    <span class="nav-bar">
+    <span class="nav-bar" v-for="headBarMenu in headBarData">
       <el-menu :default-active="activeIndex" class="el-menu-demo" text-color="#fff"
-          active-text-color="#ffd04b" mode="horizontal" @select="selectNavBar()">
-        <el-menu-item index="1" @click="$router.push('/')">首页</el-menu-item>
-        <el-menu-item index="2">消息管理</el-menu-item>
-        <el-menu-item index="3">系统管理</el-menu-item>
+          active-text-color="#ffd04b" mode="horizontal" @select="selectNavBar()"
+          v-loading="menuLoading">
+        <el-menu-item :key="headBarMenu.id" 
+                      :data="headBarMenu" 
+                      :index="headBarMenu.name" 
+                      @click="handleClickRoute(headBarMenu)" 
+                       >{{headBarMenu.name}}
+        </el-menu-item>
       </el-menu>
     </span>
     <span class="tool-bar">
@@ -41,8 +44,11 @@ export default {
       isCollapse: false,
       username: "SmallRain",
       userAvatar: "",
-      activeIndex: '1',
-      headBarData: []
+      activeIndex: "",
+      headBarData: [],//一级菜单展示
+      headMenuData: [],//二级菜单展示
+      menuLoading: false,
+      moduleCode: ''
     };
   },
   methods: {
@@ -56,10 +62,37 @@ export default {
         }else if(res.status == 200){
           //将后台传来的数据进行转换。转换成所需要的的数据 
           this.headBarData = res.data
+          this.activeIndex = res.data[0].name
         }
 				this.menuLoading = false
 			})
 		},
+    // 点击横向菜单，跳转至对应的页面
+    handleClickRoute: function (headBarMenu) {
+        this.menuLoading = true
+      	this.$api.menu.findClickRoute({'moduleCode':headBarMenu.code}).then((res) => {
+          //跳转至对应页面
+        if(res.status == 502){
+           this.$message({ message: res.data, type: 'error' })
+           return
+        }else if(res.status == 200){
+          //动态展示菜单并调转至对应路由
+          this.headMenuData = res.data
+          //存在无二级菜单时，展示展示404页面
+          if(this.headMenuData.length == 0){
+            this.headMenuData = [{
+            "id": "fd2da964-f2d7-1037-9a77-451bb43a0465",
+            "name": "待开发",
+            "icon": "el-icon-more-outline",
+            "menuRoute": "404"
+        }]
+        }
+          this.$store.commit('setNavTree',this.headMenuData)
+        }
+				this.menuLoading = false
+			})
+
+    },
     selectNavBar(key, keyPath) {
       console.log(key, keyPath)
     },

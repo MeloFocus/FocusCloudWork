@@ -25,9 +25,9 @@ import { getIFrameUrl, getIFramePath } from '@/utils/iframe'
     methods: {
     handleRoute (menu) {
       // 如果是嵌套页面，转换成iframe的path
-      let path = getIFramePath(menu.url)
+      let path = getIFramePath(menu.menuRoute)
       if(!path) {
-        path = menu.url
+        path = menu.menuRoute
       }
       // 通过菜单URL跳转至指定路由
       this.$router.push("/" + path)

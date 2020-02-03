@@ -78,9 +78,7 @@ import qs from 'qs';
       login(){
         let userInfo = {loginName:this.user.username, password:this.user.password}
        this.$api.login.login(qs.stringify(userInfo)).then(function(res) {
-       // this.$api.login.login(userInfo).then((res) => {
              Cookies.set('token', userInfo.password) // 放置token到Cookie
-            
              sessionStorage.setItem('user', userInfo.loginName) // 保存用户到本地会话
              router.push({ path: '/' });  // 登录成功，跳转到主页
           }).catch(function(res) {

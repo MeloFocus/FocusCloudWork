@@ -3,45 +3,20 @@ import axios from '../axios'
 /* 
  * 菜单管理模块
  */
-
- // 保存
-export const save = (data) => {
-    return axios({
-        url: '/menu/save',
-        method: 'post',
-        data
-    })
-}
-// 删除
-export const batchDelete = (data) => {
-    return axios({
-        url: '/menu/delete',
-        method: 'post',
-        data
-    })
-}
-// 查找导航菜单树
-export const findNavTree = (params) => {
-    return axios({
-        url: '/menu/findNavTree',
-        method: 'get',
-        params
-    })
-}
-// 查找导航菜单树
-export const findMenuTree = () => {
-    return axios({
-        url: '/menu/findMenuTree',
-        method: 'get'
-    })
-}
-
-
 // 查找横向导航菜单树
 export const findHeadBar = () => {
     return axios({
         url: '/base/baseResource/indexResource',
         method: 'get'
+    })
+}
+
+// 查询当前横向带单对应的左侧列表
+export const findClickRoute = (params) => {
+    return axios({
+        url: '/base/baseResource/resourcesInModule',
+        method: 'get',
+        params
     })
 }
 
