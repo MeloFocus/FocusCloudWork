@@ -19,7 +19,7 @@
         @findPage="findPage" @handleEdit="handleEdit" @handleAuth="handleAuth" @handleDelete="handleDelete">
     </KtTable>
     <!--新增界面-->
-    <el-dialog :title="operation?'新增Focus Cloud角色':'修改Focus Cloud角色'" width="40%" :visible.sync="dialogVisible" :close-on-click-modal="false">
+    <el-dialog title="新增Focus Cloud角色" width="40%" :visible.sync="adddialogVisible" :close-on-click-modal="false">
         <el-form :model="dataForm" label-width="80px" :rules="dataFormRules" ref="dataForm">
             <el-form-item label="角色名称" prop="name">
                 <el-input v-model="dataForm.name" auto-complete="off"></el-input>
@@ -35,13 +35,13 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click.native="dialogVisible = false">取消</el-button>
-            <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+            <el-button @click.native="adddialogVisible = false">取消</el-button>
+            <el-button type="primary" @click.native="addSubmit" :loading="editLoading">提交</el-button>
         </div>
     </el-dialog>
 
-        <!--编辑界面-->
-    <el-dialog :title="operation?'新增Focus Cloud角色':'修改Focus Cloud角色'" width="40%" :visible.sync="dialogVisible" :close-on-click-modal="false">
+    <!--编辑界面-->
+    <el-dialog title="修改Focus Cloud角色" width="40%" :visible.sync="editdialogVisible" :close-on-click-modal="false">
         <el-form :model="dataForm" label-width="80px" :rules="dataFormRules" ref="dataForm">
             <el-form-item label="角色标志码" prop="code">
                 <el-input v-model="dataForm.code" auto-complete="off"></el-input>
@@ -54,7 +54,7 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click.native="dialogVisible = false">取消</el-button>
+            <el-button @click.native="editdialogVisible = false">取消</el-button>
             <el-button type="primary" @click.native="editSubmitList" :loading="editLoading">提交</el-button>
         </div>
     </el-dialog>
@@ -105,8 +105,8 @@ export default {
             ],
             pageRequest: { pageNum: 1, pageSize: 8 },
             pageResult: {},
-            operation: false, // true:新增, false:编辑
-            dialogVisible: false, // 新增编辑界面是否显示
+            adddialogVisible: false, // 新增界面是否显示
+            editdialogVisible: false, // 编辑界面是否显示
             authDialogVisible: false, // 授权界面是否显示
             editLoading: false,
             dataFormRules: {
@@ -166,8 +166,7 @@ export default {
         },
         // 显示新增界面
         handleAdd: function () {
-            this.dialogVisible = true
-            this.operation = true
+            this.adddialogVisible = true
             this.dataForm = {
                 name: 'Hydra825',
                 code: 1,
@@ -177,9 +176,8 @@ export default {
         },
         // 显示编辑界面
         handleEdit: function (params) {
-            this.dialogVisible = true
+            this.editdialogVisible = true
             //增加id 属性
-            this.operation = false
             this.dataForm = Object.assign({}, params.row)
         },
         // 显示授权页面
@@ -187,7 +185,7 @@ export default {
             this.authDialogVisible = true
         },
         // 用户新增按钮
-        editSubmit: function () {
+        addSubmit: function () {
             this.$refs.dataForm.validate((valid) => {
                 if (valid) {
                     this.$confirm('确认提交吗？', '提示', {}).then(() => {
@@ -201,7 +199,7 @@ export default {
                             }
                             this.$message({ message: '提交成功', type: 'success' })
                             this.$refs['dataForm'].resetFields()
-                            this.dialogVisible = false
+                            this.adddialogVisible = false
                             this.findPage(null)
                         })
                     })
@@ -223,7 +221,7 @@ export default {
                             }
                             this.$message({ message: '提交成功', type: 'success' })
                             this.$refs['dataForm'].resetFields()
-                            this.dialogVisible = false
+                            this.editdialogVisible = false
                             this.findPage(null)
                         })
                     })

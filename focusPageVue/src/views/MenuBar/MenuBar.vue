@@ -6,7 +6,7 @@
         <img v-if="collapse" src="@/assets/logo.png"/> <div>{{collapse?'':appName}}</div>
     </div>
     <!-- 导航菜单 -->
-    <el-menu ref="navmenu" default-active="1" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'"
+    <el-menu ref="navmenu" :default-active="activeIndex" :class="collapse?'menu-bar-collapse-width':'menu-bar-width'"
       :collapse="collapse" :collapse-transition="false" :unique-opened="true  "
       @open="handleopen" @close="handleclose" @select="handleselect" >
       <!-- 导航菜单树组件，动态加载菜单 -->
@@ -21,7 +21,8 @@ import MenuTree from "@/components/MenuTree"
 export default {
   data() {
     return {
-      moduleCode: 'module_user_manage'
+      moduleCode: 'module_user_manage',
+      activeIndex: "",
     };
   },
   components:{
@@ -52,6 +53,11 @@ export default {
     },
     // 路由操作处理
     handleRoute (route) {
+      
+      // 更新高亮菜单
+      if(this.$refs.navmenu != null) {
+        this.activeIndex = '' + route.meta.index
+      }
    
     },
     //加载导航菜单

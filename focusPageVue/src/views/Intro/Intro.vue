@@ -16,27 +16,17 @@
           <li>✔ 角色管理：新建角色，修改角色，删除角色，查询角色</li>
           <li>✔ 菜单管理：新建菜单，修改菜单，删除菜单，查询菜单</li>
           <li>✔ 权限管理：用户授权，角色授权，菜单授权</li>
-          <li>✔ 接口文档：定制在线文档，提供简洁美观的API文档</li>
-          <li>✔ 主题切换：支持主题切换，自定主题颜色，一键换肤</li>
-          <li>✔ 国际化实现：支持中英文切换</li>
-          <li>✘ 单点登录：利用 OAuth2, 提供统一的单点登录功能</li>
-          <li>✘ 系统登录：集成第三方登录功能（QQ、微信、微博）</li>
           <li>...</li>
         </ul>
       </el-carousel-item>
       <el-carousel-item class="carousel-item-env">
-        <h2>开发环境</h2>
+        <h2>前台开发环境</h2>
         <ul>
-          <li>IDE : eclipse 4.6.x。     JDK : JDK 1.8.x。</li>
-          <li>Maven : Maven 3.5.x。   MySQL: MySQL 5.7.x。</li>
           <li>IDE : VS Code 1.41.1。    Webpack：webpack 3.6.x。</li>
           <li>NODE: Node 8.9.x。      NPM : NPM 6.13.x。</li>
         </ul>
-        <h2>技术选型</h2>
+        <h2>前台技术选型</h2>
         <ul>
-          <li>核心框架：Spring Boot 2.x。  服务治理：Spring Cloud。</li>
-          <li>视图框架：Spring MVC 5.x。   持久层框架：MyBatis 3.x。</li>
-          <li>数据库连接池：Druid 1.x。    安全框架：Shiro 1.4.x。</li>
           <li>前端框架：Vue.js 2.x。       页面组件：Element 2.x。</li>
           <li>状态管理：Vuex.js 2.x。      后台交互：axios 0.18.x。</li>
           <li>...</li>

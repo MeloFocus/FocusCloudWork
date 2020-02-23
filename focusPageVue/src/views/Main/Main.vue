@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :class="$store.state.app.collapse?'menu-bar-collapse-width':'menu-bar-width'">
     <BreadCrumb></BreadCrumb>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
@@ -40,12 +40,14 @@ export default {
     border-bottom-style: solid;
     background: rgba(138, 158, 170, 0.2);
   }
-
-  .menu-bar-width {
-    width: 200px;
-  }
-  .menu-bar-collapse-width {
-    width: 65px;
-  }
 }
+
+
+.menu-bar-width {
+  left: 200px;
+}
+.menu-bar-collapse-width {
+  left: 65px;
+}
+
 </style>

@@ -10,6 +10,16 @@ import api from '@/http/api'
 import store from '@/store'
 import { getIFramePath, getIFrameUrl } from '@/utils/iframe'
 
+
+/**
+ * 重写路由的push方法
+ */
+const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(error=> error)
+}
+
+
 Vue.use(Router)
 
 const router = new Router({
@@ -81,9 +91,8 @@ function addDynamicMenuAndRoutes(user, to, from) {
     console.log('')
     return
   }
-  api.menu.findClickRoute({'moduleCode':'module_user_manage'})
+  api.menu.findClickRoute({'moduleCode':''})
   .then( (res) => {
-    store.commit('setNavTree', res.data)
     // 添加动态路由
     let dynamicRoutes = addDynamicRoutes(res.data)
     // 处理静态组件绑定路由
@@ -92,7 +101,7 @@ function addDynamicMenuAndRoutes(user, to, from) {
     // 保存加载状态
      store.commit('menuRouteLoaded', true)
     // 保存菜单树
-     store.commit('setNavTree', res.data)
+    //  store.commit('setNavTree', res.data)
   })
   .catch(function(res) {
     alert(res);

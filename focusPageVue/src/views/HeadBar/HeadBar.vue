@@ -1,5 +1,5 @@
 <template> 
-  <div class="container" >
+  <div class="container" :class="$store.state.app.collapse?'menu-bar-collapse-width':'menu-bar-width'">
     <!-- 导航菜单隐藏显示切换 -->
     <span class="collapse-switcher" @click.prevent="collapse">
       <i class="el-icon-menu"></i>
@@ -69,7 +69,11 @@ export default {
 		},
     // 点击横向菜单，跳转至对应的页面
     handleClickRoute: function (headBarMenu) {
-        this.menuLoading = true
+
+      //修改高亮菜单
+        this.activeIndex = headBarMenu.name
+       //当前服务器反应，过慢，先把加载框取消
+       // this.menuLoading = true
       	this.$api.menu.findClickRoute({'moduleCode':headBarMenu.code}).then((res) => {
           //跳转至对应页面
         if(res.status == 502){
@@ -185,5 +189,14 @@ export default {
       }
     }
   }
+
+ 
+}
+
+.menu-bar-width {
+  left: 200px;
+}
+.menu-bar-collapse-width {
+  left: 65px;
 }
 </style>

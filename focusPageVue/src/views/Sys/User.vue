@@ -19,7 +19,7 @@
         @findPage="findPage" @handleEdit="handleEdit"  @handleAuth="handleAuth" @handleDelete="handleDelete" @handleCurrentChange="handleRoleSelectChange">
     </KtTable>
     <!--新增界面-->
-    <el-dialog :title="operation?'注册Focus Cloud用户':'修改Focus Cloud用户'" width="40%" :visible.sync="editDialogVisible" :close-on-click-modal="false">
+    <el-dialog title="注册Focus Cloud用户" width="40%" :visible.sync="addDialogVisible" :close-on-click-modal="false">
         <el-form :model="dataForm" label-width="80px" :rules="dataFormRules" ref="dataForm">
             <el-form-item label="用户名" prop="loginName">
                 <el-input v-model="dataForm.loginName" auto-complete="off"></el-input>
@@ -47,13 +47,13 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click.native="editDialogVisible = false">取消</el-button>
-            <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+            <el-button @click.native="addDialogVisible = false">取消</el-button>
+            <el-button type="primary" @click.native="addSubmit" :loading="editLoading">提交</el-button>
         </div>
     </el-dialog>
 
-        <!--编辑界面-->
-    <el-dialog :title="operation?'注册Focus Cloud用户':'修改Focus Cloud用户'" width="40%" :visible.sync="editDialogVisible" :close-on-click-modal="false">
+    <!--编辑界面-->
+    <el-dialog title="修改Focus Cloud用户" width="40%" :visible.sync="editDialogVisible" :close-on-click-modal="false">
         <el-form :model="dataForm" label-width="80px" :rules="dataFormRules" ref="dataForm">
             <el-form-item label="密码" prop="password">
                 <el-input v-model="dataForm.password" type="password" auto-complete="off"></el-input>
@@ -85,8 +85,8 @@
 
     <!--授权界面-->
     <el-dialog title="用户授权" width="40%" :visible.sync="authDialogVisible" :close-on-click-modal="false">
-  <!--当前页面仅用于展示资源管理菜单栏-->
-  <!--资源菜单，表格树内容栏-->
+    <!--当前页面仅用于展示资源管理菜单栏-->
+    <!--资源菜单，表格树内容栏-->
 	<div class="menu-container" :v-if="true">
         <el-tree :data="menuData" size="mini" show-checkbox node-key="id" :props="defaultProps"
 			style="width: 100%;pading-top:20px;" ref="menuTree" :render-content="renderContent"
@@ -134,8 +134,8 @@ export default {
             ],
             pageRequest: { pageNum: 1, pageSize: 8 },
             pageResult: {},
-            operation: false, // true:新增, false:编辑
-            editDialogVisible: false, // 新增编辑界面是否显示
+            addDialogVisible: false,  // 新增界面是否显示
+            editDialogVisible: false, // 编辑界面是否显示
             authDialogVisible: false, // 授权界面是否显示
             editLoading: false,
             dataFormRules: {
@@ -200,8 +200,7 @@ export default {
         },
         // 显示新增界面
         handleAdd: function () {
-            this.editDialogVisible = true
-            this.operation = true
+            this.addDialogVisible = true
             this.dataForm = {
                 loginName: 'xiaoyuyu',
                 password: 'Hydra825',
@@ -218,7 +217,6 @@ export default {
         handleEdit: function (params) {
             this.editDialogVisible = true
             delete params.row.loginName
-            this.operation = false
             this.dataForm = Object.assign({}, params.row)
         },
         // 显示授权页面
@@ -226,8 +224,8 @@ export default {
             this.authDialogVisible = true
             this.userId = Object.assign({}, params.row)
         },
-        // 用户新增按钮
-        editSubmit: function () {
+        // 用户新增按钮 提交
+        addSubmit: function () {
             this.$refs.dataForm.validate((valid) => {
                 if (valid) {
                     this.$confirm('确认提交吗？', '提示', {}).then(() => {
@@ -241,14 +239,14 @@ export default {
                             }
                             this.$message({ message: '提交成功', type: 'success' })
                             this.$refs['dataForm'].resetFields()
-                            this.editDialogVisible = false
+                            this.addDialogVisible = false
                             this.findPage(null)
                         })
                     })
                 }
             })
         },
-        // 用户编辑按钮
+        // 用户编辑按钮 提交
         editSubmitList: function () {
             this.$refs.dataForm.validate((valid) => {
                 if (valid) {
@@ -271,10 +269,10 @@ export default {
             })
         },
         // 菜单树选中
-          deptTreeCurrentChangeHandle (data, node) {
+        deptTreeCurrentChangeHandle (data, node) {
             this.dataForm.deptId = data.id
             this.dataForm.deptName = data.name
-          },
+        },
 
         // 获取资源菜单数
 		findResourceTree: function () {

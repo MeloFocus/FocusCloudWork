@@ -9,7 +9,8 @@ module.exports = {
   dev: {
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    //assetsPublicPath: '/',
+    assetsPublicPath: './',    //部署环境
     proxyTable: {},
     // proxyTable: proxyConfig.proxyList,
     
@@ -53,7 +54,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+  //assetsPublicPath: '/',
+    assetsPublicPath: './',    //部署环境
 
     /**
      * Source Maps

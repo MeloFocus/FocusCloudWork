@@ -12,7 +12,7 @@ export default {
         }
     },
     mutations: {
-        onCollapse(state){  // 改变收缩状态
+        collapse(state){  // 改变收缩状态
             state.collapse = !state.collapse
         },
         setThemeColor(state, themeColor){  // 改变主题颜色
